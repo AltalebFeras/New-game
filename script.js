@@ -1,3 +1,5 @@
+import Movingcar from "./MovingCar.js";
+
 let countDown = document.getElementById("countDown"); // I get the counter
 let start = document.getElementById("buttonStart"); // I get the start button
 
@@ -30,7 +32,6 @@ function horn() {
 function hornPolice() {
   let audio = new Audio("audio/police.mp3");
   audio.play();
-  movingCar.style.top = "100px"
 }
 //to make a background rolling
 let currentPosition = 0;
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let positionY = 0;
   const containerWidth = 800;
   const containerheight = 300;
-  const moveStep = 10; // define the speed
+  const moveStep = 100; // define the speed
 
   function movePlayer(x, y) {
     if (positionX + x >= 0 && positionX + x <= containerWidth) {
@@ -75,10 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "ArrowLeft":
         positionX >= 0;
-        movePlayer(-moveStep, 0);
+        movePlayer(-moveStep/2, 0);
         break;
-      case "ArrowRight":
-        movePlayer(moveStep, 0);
+      case "ArrowRight":// I divided the speed on two for left and right to avoid fast collision
+        movePlayer(moveStep/2, 0);
         break;
       case "k":
         horn();
@@ -91,33 +92,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-let car = document.createElement("div");
-car.setAttribute("id", "movingCar");
-raceContainer.appendChild(car);
-car.style.backgroundImage = "url(Image/Model3.png)";
-car.style.width = "100px";
-car.style.height = "100px";
-car.style.position = "absolute";
-car.style.left = " 800px";
 
-function myMove() {
-  let id = null;
-  const movingCar = document.getElementById("movingCar");
-  let pos = 800;
-  clearInterval(id);
-  id = setInterval(frameMove, 1);
-  function frameMove() {
-    if (pos == 0) {
-      clearInterval(id);
-    } else {
-      const randomNumber = Math.floor(Math.random() * 3) + 3;
-
-      pos -= randomNumber;
-      movingCar.style.left = pos + "px";
-      if (pos <= 0) {
-        movingCar.style.display = "none";
-      }
-    }
-  }
+let cars = [];
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-myMove();
+function createNewCar() {
+  let topValue = getRandomNumber(0, 3) * 100; 
+  let speedValue = getRandomNumber(2, 4); 
+  cars.push(new Movingcar(topValue, speedValue));
+}
+
+createNewCar();
+
+setInterval(createNewCar, 2000);

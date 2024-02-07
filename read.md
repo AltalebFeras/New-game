@@ -59,3 +59,19 @@ function endGame(){
 // make class cars
 //add a tableau to choose between the elemnts
 
+ #myMove() {
+    let pos = 800;
+    let num = null;
+    clearInterval(num);
+    num = setInterval(() => {
+      if (pos <= 0) {
+        clearInterval(num);
+        this.carElement.style.display = "none";
+      } else {
+        pos -= this.speed;
+        this.carElement.style.left = pos + "px";
+      }
+    }, 1);
+  }
+}
+
