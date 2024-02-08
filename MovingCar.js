@@ -48,6 +48,7 @@ export default class Movingcar {
     car.style.position = "absolute";
     car.style.left = " 800px";
     car.style.top = this.top + "px";
+    console.log(car.id);
   }
 
   #myMove() {

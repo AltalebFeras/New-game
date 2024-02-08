@@ -1,30 +1,15 @@
 import Movingcar from "./MovingCar.js";
 
-let countDown = document.getElementById("countDown"); // I get the counter
+let game = document.getElementById("game");
+let gameOver = document.getElementById("gameOver");
 let start = document.getElementById("buttonStart"); // I get the start button
-
+let restart = document.getElementById("restartButton");
 let player = document.getElementById("player"); // I got the Player element
 
 let playerName = document.getElementById("playerName");
 
 let playerScore = document.getElementById("playerScore");
 
-// I set a function to do the count down
-function counter() {
-  let count = 4; // to get 3 seconds on the counter screen
-  const timer = setInterval(function () {
-    count--; // To get a  (-1) by each second
-    countDown.textContent = count;
-    if (count === 0) {
-      clearInterval(timer); // to delete the timer value
-      countDown.textContent = "GO GO!"; // display GO GO
-    }
-    setTimeout(function () {
-      // to hide the timer from the screen
-      countDown.style.display = "none";
-    }, 6000); // I add 6 seconds in order to let the timer display all the its contents , then hide himself
-  }, 1000); // the frequence of the interval
-}
 function horn() {
   let audio = new Audio("audio/Klaxon.mp3");
   audio.play();
@@ -76,10 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "ArrowLeft":
         positionX >= 0;
-        movePlayer(-moveStep/2, 0);
+        movePlayer(-moveStep / 2, 0);
         break;
-      case "ArrowRight":// I divided the speed on two for left and right to avoid fast collision
-        movePlayer(moveStep/2, 0);
+      case "ArrowRight": // I divided the speed on two for left and right to avoid fast collision
+        movePlayer(moveStep / 2, 0);
         break;
       case "k":
         horn();
@@ -98,11 +83,27 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function createNewCar() {
-  let topValue = getRandomNumber(0, 3) * 100; 
-  let speedValue = getRandomNumber(2, 4); 
+  let topValue = getRandomNumber(0, 3) * 100;
+  let speedValue = getRandomNumber(2, 4);
   cars.push(new Movingcar(topValue, speedValue));
 }
 
-createNewCar();
+start.addEventListener("click", () => {
+  createNewCar();
+  setInterval(createNewCar, 2000);
+  setTimeout(() => {
+    start.style.display = "none";
+    restart.style.display = "block"
+  }, 1111);
+});
+restart.addEventListener("click", () => {
+  gameover();
+  createNewCar();
 
-setInterval(createNewCar, 2000);
+  setInterval(createNewCar, 1000);
+});
+
+function gameover() {
+  game.style.display = "none";
+  gameOver.style.display = "block";
+}
