@@ -1,77 +1,33 @@
-pour ajouter un element
-const raceContainer = document.getElementById("raceContainer");
+Jeu de Voiture en JavaScript
+Ce projet est un jeu simple basé sur JavaScript où le joueur contrôle une voiture se déplaçant sur une autoroute tout en évitant les collisions avec d'autres voitures. Le jeu comprend également des fonctionnalités telles que de la musique de fond, des effets sonores de klaxon et un système de score.
 
-let car = document.createElement("div");
-car.setAttribute("class", "car");
-raceContainer.appendChild(car);
-car.style.backgroundImage = "url(Image/Model3.png)";
-car.style.width = "100px";
-car.style.height = "100px";
-car.style.position = "absolute";
-car.style.left = " 800px";
+Instructions
+Démarrer le Jeu : Cliquez sur le bouton "start" pour commencer à jouer. Votre voiture de joueur apparaîtra en guache de l'écran, et d'autres voitures commenceront à se déplacer vers elle.
 
+Contrôler la Voiture du Joueur : Utilisez les touches fléchées de votre clavier pour déplacer la voiture du joueur vers le haut, le bas, la gauche ou la droite. Évitez les collisions avec les autres voitures pour continuer à jouer.
 
-function getLeftValue() {
-  let computedStyle = window.getComputedStyle(player);
-  let currentLeft = computedStyle.getPropertyValue("left");
-  let leftValue = parseInt(currentLeft.replace("px", ""), 10);
-  console.log("Current left value:", leftValue);
-}
+Effets Sonores : Appuyez sur "K" pour klaxonner votre voiture, "P" pour activer un klaxon de police, et "M" pour activer/désactiver la musique de fond.
 
-function moveBackground() {
-  currentPosition -= speed;
-  raceContainer.style.backgroundPosition = currentPosition + "px 0";
-  requestAnimationFrame(moveBackground);
-}
+Système de Score : Vous gagnez des points au fil du temps pendant que vous jouez. Les points augmentent automatiquement toutes 3 secondes.
 
-moveBackground();
+Fin de Partie : Si votre voiture entre en collision avec une autre voiture, le jeu se termine GAME OVER. Vous pouvez redémarrer le jeu en cliquant sur le bouton "restart".
+
+Fonctionnalités
+Déplacement Dynamique des Voitures : Les autres voitures se déplacent de droite à gauche à des vitesses variées.
 
 
-function isCollide(player, car) {
-  playerRect = player.getBoundingClientRect();
-  console.log(playerRect.top);
-  car = car.getBoundingClientRect();
+Musique de Fond :Vous pouvez activer ou désactiver la musique pendant le jeu.
 
-  return !(
-    playerRect.top > carRect.bottom ||
-    playerRect.left > carRect.right ||
-    playerRect.right < carRect.left ||
-    playerRect.bottom < carRect.top
-  );
-}
-function endGame(){
+Effets Sonores : Des effets sonores comme le klaxon de voiture et la sirène de police ajoutent à l'expérience de jeu.
 
-  if (isCollide(player, car)) {
-    return true;
-  } else {
-    return false;
-  }
-}
+Système de Score : Les joueurs gagnent des points au fil du temps, encourageant des sessions de jeu plus longues.
 
-//notice
+Développement
+Le jeu est développé en utilisant HTML, CSS et JavaScript.
+
+Depplomment
+Vous pouvez jouer enligne en cliqant sur le lien https://altalebferas.github.io/New-game/
 
 
-// add cars randomly on the game container 
-// add score  plus ten points for each car has left less that the player left 
-// add collision if the cars had crashed
-// end the game 
-// make function to start the game 
-// make class cars
-//add a tableau to choose between the elemnts
 
- #myMove() {
-    let pos = 800;
-    let num = null;
-    clearInterval(num);
-    num = setInterval(() => {
-      if (pos <= 0) {
-        clearInterval(num);
-        this.carElement.style.display = "none";
-      } else {
-        pos -= this.speed;
-        this.carElement.style.left = pos + "px";
-      }
-    }, 1);
-  }
-}
 

@@ -43,7 +43,6 @@ moveBackground();
 
 // to put an event on keyboard arrow to make the element move up/ down / left/ right
 
-
 document.addEventListener("DOMContentLoaded", function () {
   let positionX = 0;
   let positionY = 0;
@@ -59,19 +58,19 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerRight = playerLeft + playerRect.width;
     let playerTop = positionY + y;
     let playerBottom = playerTop + playerRect.height;
-  
+
     // Check for collision with each car
     for (let i = 0; i < cars.length; i++) {
       let car = document.getElementById(cars[i].id);
       let carRect = car.getBoundingClientRect();
       console.log(car[i]);
-  
+
       // Calculate car's position
       let carLeft = parseInt(car.style.left);
       let carRight = carLeft + carRect.width;
       let carTop = parseInt(car.style.top);
       let carBottom = carTop + carRect.height;
-  
+
       // Check for collision
       if (
         playerRight > carLeft &&
@@ -83,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gameover();
       }
     }
-  
+
     // Move the player
     if (positionX + x >= 0 && positionX + x <= containerWidth) {
       positionX += x;
@@ -96,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("left = ", positionX);
     console.log("top = ", positionY);
   }
-  
+
   //after i defined the top and the left I will increase and decrease it by :
   document.addEventListener("keydown", function (event) {
     switch (event.key) {
@@ -143,11 +142,7 @@ start.addEventListener("click", () => {
   addPlayerName();
   highway();
   createNewCar();
-  setInterval(createNewCar, 2000);
-  setTimeout(() => {
-    start.style.display = "none";
-    restart.style.display = "block";
-  }, 1111);
+  settimeEtSetinterval();
 });
 restart.addEventListener("click", () => {
   gameover();
@@ -169,22 +164,26 @@ function addPlayerName() {
 let points = 0;
 let playerScore = document.getElementById("playerScore");
 function addPoints() {
-  
-  points += 5; 
-  playerScore.textContent = points; 
+  points += 5;
+  playerScore.textContent = points;
 }
-
-
-setInterval(addPoints, 3000);
 
 
 function moveRightPlayer() {
   let currentRight = parseInt(player.style.right) || 0;
-  player.style.right = (currentRight + 1) + 'px';
+  player.style.right = currentRight + 1 + "px";
   let currentLeft = parseInt(player.style.left) || 0;
-  player.style.left = (currentLeft + 1) + 'px';
-
+  player.style.left = currentLeft + 1 + "px";
 }
 
 // Call moveDiv function every 333 milliseconds
-setInterval(moveRightPlayer, 333);
+function settimeEtSetinterval(){
+  
+  setInterval(addPoints, 3000);
+  setInterval(createNewCar, 2000);
+  setTimeout(() => {
+    start.style.display = "none";
+    restart.style.display = "block";
+  }, 1111);
+  setInterval(moveRightPlayer, 333);
+} 
