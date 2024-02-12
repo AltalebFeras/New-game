@@ -10,11 +10,21 @@
   <body>
     <div id="gameOver">
       <div><img src="Image/gameOver.gif" alt=""></div>
-      
+      <button id="PLAY">PLAY</button>
+      <div class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
     <div id="game">
       <div id="startSide">
        
+        <label for="yourName">Enter Your Name</label>
+        <input type="text" name="yourName" id="yourName">
+      
         <button id="buttonStart" >
           Start
         </button>
@@ -32,10 +42,10 @@
       
          
           <div id="Scores">
-            <div id="playerName">Player</div>
-            <div id="playerScore">0</div>
+            <div id="playerName"></div>
+            <div id="playerScore"></div>
+            <div id="flagEndRace"><img src="Image/maki_racetrack.png" alt="" /></div>
       </div>
-      <div id="flagEndRace"><img src="Image/maki_racetrack.png" alt="" /></div>
     </div>
  
   

@@ -5,11 +5,23 @@ let gameOver = document.getElementById("gameOver");
 let start = document.getElementById("buttonStart"); // I get the start button
 let restart = document.getElementById("restartButton");
 let player = document.getElementById("player"); // I got the Player element
+console.log(player);
+let musicPlaying = false;
+let audiomusic = new Audio("audio/music.mp3");
 
-let playerName = document.getElementById("playerName");
-
-let playerScore = document.getElementById("playerScore");
-
+function music() {
+  if (musicPlaying) {
+    audiomusic.pause();
+    musicPlaying = false;
+  } else {
+    audiomusic.play();
+    musicPlaying = true;
+  }
+}
+function highway() {
+  let audio = new Audio("audio/highway.mp3");
+  audio.play();
+}
 function horn() {
   let audio = new Audio("audio/Klaxon.mp3");
   audio.play();
@@ -31,6 +43,7 @@ moveBackground();
 
 // to put an event on keyboard arrow to make the element move up/ down / left/ right
 
+
 document.addEventListener("DOMContentLoaded", function () {
   let positionX = 0;
   let positionY = 0;
@@ -39,6 +52,39 @@ document.addEventListener("DOMContentLoaded", function () {
   const moveStep = 100; // define the speed
 
   function movePlayer(x, y) {
+    // Calculate player's current position
+    let playerRect = player.getBoundingClientRect();
+    console.log(playerRect);
+    let playerLeft = positionX + x;
+    let playerRight = playerLeft + playerRect.width;
+    let playerTop = positionY + y;
+    let playerBottom = playerTop + playerRect.height;
+  
+    // Check for collision with each car
+    for (let i = 0; i < cars.length; i++) {
+      let car = document.getElementById(cars[i].id);
+      let carRect = car.getBoundingClientRect();
+      console.log(car[i]);
+  
+      // Calculate car's position
+      let carLeft = parseInt(car.style.left);
+      let carRight = carLeft + carRect.width;
+      let carTop = parseInt(car.style.top);
+      let carBottom = carTop + carRect.height;
+  
+      // Check for collision
+      if (
+        playerRight > carLeft &&
+        playerLeft < carRight &&
+        playerBottom > carTop &&
+        playerTop < carBottom
+      ) {
+        // Collision detected
+        gameover();
+      }
+    }
+  
+    // Move the player
     if (positionX + x >= 0 && positionX + x <= containerWidth) {
       positionX += x;
     }
@@ -50,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("left = ", positionX);
     console.log("top = ", positionY);
   }
+  
   //after i defined the top and the left I will increase and decrease it by :
   document.addEventListener("keydown", function (event) {
     switch (event.key) {
@@ -72,6 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
       case "p":
         hornPolice();
         break;
+      case "m":
+        music();
+        break;
       default:
         break;
     }
@@ -89,11 +139,14 @@ function createNewCar() {
 }
 
 start.addEventListener("click", () => {
+  addPoints();
+  addPlayerName();
+  highway();
   createNewCar();
   setInterval(createNewCar, 2000);
   setTimeout(() => {
     start.style.display = "none";
-    restart.style.display = "block"
+    restart.style.display = "block";
   }, 1111);
 });
 restart.addEventListener("click", () => {
@@ -105,5 +158,33 @@ restart.addEventListener("click", () => {
 
 function gameover() {
   game.style.display = "none";
-  gameOver.style.display = "block";
+  gameOver.style.display = "flex";
 }
+function addPlayerName() {
+  let yourName = document.getElementById("yourName").value;
+  let playerName = document.getElementById("playerName");
+  playerName.textContent = "" + yourName;
+}
+
+let points = 0;
+let playerScore = document.getElementById("playerScore");
+function addPoints() {
+  
+  points += 5; 
+  playerScore.textContent = points; 
+}
+
+
+setInterval(addPoints, 3000);
+
+
+function moveRightPlayer() {
+  let currentRight = parseInt(player.style.right) || 0;
+  player.style.right = (currentRight + 1) + 'px';
+  let currentLeft = parseInt(player.style.left) || 0;
+  player.style.left = (currentLeft + 1) + 'px';
+
+}
+
+// Call moveDiv function every 333 milliseconds
+setInterval(moveRightPlayer, 333);

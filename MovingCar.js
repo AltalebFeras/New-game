@@ -55,7 +55,7 @@ export default class Movingcar {
     let car = document.getElementById(this.id);
     let left = 800;
     let moveInterval = setInterval(() => {
-      if (left <= 100) {
+      if (left <= 0) {
         car.style.display = "none";
         clearInterval(moveInterval);
       } else {
@@ -65,4 +65,3 @@ export default class Movingcar {
     }, 10); // Adjust interval as needed
   }
 }
-
