@@ -5,14 +5,14 @@ let gameOver = document.getElementById("gameOver");
 let start = document.getElementById("buttonStart"); // I get the start button
 let restart = document.getElementById("restartButton");
 let player = document.getElementById("player"); // I got the Player element
-let startSide = document.getElementById('startSide')
-let scoreSid = document.getElementById('scoreSid')
+let startSide = document.getElementById("startSide");
+let scoreSid = document.getElementById("scoreSid");
 let playerScore = document.getElementById("playerScore");
 console.log(player);
 
 let musicPlaying = false;
 let audiomusic = new Audio("audio/music.mp3");
-
+let audioGameOver = new Audio("audio/GameOver.mp3");
 function music() {
   if (musicPlaying) {
     audiomusic.pause();
@@ -24,7 +24,6 @@ function music() {
 }
 let audioHighWay = new Audio("audio/highway.mp3");
 function highway() {
-  
   audioHighWay.play();
 }
 function horn() {
@@ -161,18 +160,17 @@ function gameover() {
   game.style.display = "none";
   gameOver.style.display = "flex";
   audioHighWay.pause();
-
+  audioGameOver.play();
 }
 function addPlayerName() {
   let yourName = document.getElementById("yourName").value;
   let playerName = document.getElementById("playerName");
   if (yourName === "") {
     yourName = "Player"; //  I set default name to "PLAYER" if the persone dose not write it.
-      }
+  }
   playerName.textContent = "" + yourName;
-  startSide.style.display = "none"
-  scoreSid.style.width = 300 +"px"
-
+  startSide.style.display = "none";
+  scoreSid.style.width = 300 + "px";
 }
 
 let points = 0;
@@ -180,7 +178,6 @@ function addPoints() {
   points += 2;
   playerScore.textContent = points;
 }
-
 
 function moveRightPlayer() {
   let currentRight = parseInt(player.style.right) || 0;
@@ -190,8 +187,8 @@ function moveRightPlayer() {
 }
 
 // Call moveDiv function every 333 milliseconds
-function settimeEtSetinterval(){
+function settimeEtSetinterval() {
   setInterval(addPoints, 3000);
   setInterval(createNewCar, 900);
   setInterval(moveRightPlayer, 333);
-} 
+}
