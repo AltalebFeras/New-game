@@ -12,7 +12,10 @@
       <div><img src="Image/gameOver.gif" alt=""></div>
       <button id="restartButton">
         Replay
-      </button>      <div class="loading">
+      </button>  
+      <p>Your Score: <span id="currentScore">0</span></p>
+    
+      <div class="loading">
         <span></span>
         <span></span>
         <span></span>
@@ -22,7 +25,13 @@
     </div>
     <div id="game">
       <div id="startSide">
-       
+        <label for="difficulty">Level</label>
+  <select id="difficulty">
+    <option value="EASY">Easy</option>
+    <option value="NORMAL">Normal</option>
+    <option value="DIFFICULT">Difficult</option>
+    <option value="HARD">Hard</option>
+  </select>
         <label for="yourName">Enter Your Name</label>
         <input type="text" name="yourName" id="yourName">
       
@@ -37,10 +46,15 @@
       </div>
       </div>
       <div id="scoreSid">
+        <button id="resetHighScore">Reset High Score</button>
+       <div id="highScoreDiv"> <p class="highScoreOnPlaying">High Score: <span id="highScore">0</span></p>
+
+       </div>
         <div id="scoreTitle"><h3>SCORE</h3></div>
       
          
           <div id="Scores">
+
             <div id="playerName"></div>
             <div id="playerScore"></div>
             <div id="flagEndRace"><img src="Image/maki_racetrack.png" alt="" /></div>

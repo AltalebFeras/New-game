@@ -41,14 +41,12 @@ export default class Movingcar {
     document.getElementById(this.id);
     raceContainer.appendChild(car);
     let randomNumber = Math.floor(Math.random() * 11);
-    console.log(randomNumber);
     car.style.backgroundImage = `url(Image/newfolder/model${randomNumber}.png)`;
     car.style.width = "100px";
     car.style.height = "100px";
     car.style.position = "absolute";
     car.style.left = " 800px";
     car.style.top = this.top + "px";
-    console.log(car.id);
   }
 
   #myMove() {
@@ -56,12 +54,11 @@ export default class Movingcar {
     let left = 800;
     let moveInterval = setInterval(() => {
       if (left <= 0) {
-        car.style.display = "none";
         clearInterval(moveInterval);
+        car.remove(); // Remove the div from the DOM
       } else {
         left -= this.speed;
         car.style.left = left + "px";
       }
-    }, 10); // Adjust  the speed interval 
-  }
-}
+    }, 10); // Adjust the speed interval
+  }}

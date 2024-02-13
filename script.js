@@ -8,8 +8,10 @@ let player = document.getElementById("player"); // I got the Player element
 let startSide = document.getElementById("startSide");
 let scoreSid = document.getElementById("scoreSid");
 let playerScore = document.getElementById("playerScore");
-console.log(player);
+let resetHighScore = document.getElementById("resetHighScore");
+let highScoreDiv = document.querySelector('#highScoreDiv')
 
+let gameIsOver = false;
 let musicPlaying = false;
 let audiomusic = new Audio("audio/music.mp3");
 let audioGameOver = new Audio("audio/GameOver.mp3");
@@ -45,7 +47,19 @@ function moveBackground() {
 // call the function to be executed
 
 // to put an event on keyboard arrow to make the element move up/ down / left/ right
+const DifficultyLevels = {
+  EASY: 1200,
+  NORMAL: 1000,
+  DIFFICULT: 700,
+  HARD: 500
+};
 
+function startGame() {
+  const selectedDifficulty = document.getElementById("difficulty").value;
+  const interval = DifficultyLevels[selectedDifficulty];
+  setInterval(createNewCar, interval);
+  // Additional game initialization code can go here
+}
 document.addEventListener("DOMContentLoaded", function () {
   let positionX = 0;
   let positionY = 0;
@@ -56,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function movePlayer(x, y) {
     // Calculate player's current position
     let playerRect = player.getBoundingClientRect();
-    console.log(playerRect);
     let playerLeft = positionX + x;
     let playerRight = playerLeft + playerRect.width;
     let playerTop = positionY + y;
@@ -65,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Check for collision with each car
     for (let i = 0; i < cars.length; i++) {
       let car = document.getElementById(cars[i].id);
+      if (car) {
       let carRect = car.getBoundingClientRect();
-      console.log(car[i]);
 
       // Calculate car's position
       let carLeft = parseInt(car.style.left);
@@ -83,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         // Collision detected
         gameover();
-      }
+      }}
     }
 
     // Move the player
@@ -95,8 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     player.style.left = positionX + "px";
     player.style.top = positionY + "px";
-    console.log("left = ", positionX);
-    console.log("top = ", positionY);
   }
 
   //after i defined the top and the left I will increase and decrease it by :
@@ -144,19 +155,21 @@ function createNewCar() {
 }
 
 start.addEventListener("click", () => {
+  startGame()
   moveBackground();
-  addPoints();
+  increaseScore();
   addPlayerName();
   highway();
-  createNewCar();
   Setintervals();
 });
 
 restart.addEventListener("click", () => {
   location.reload();
-  createNewCar();
+  
 
-  setInterval(createNewCar, 1000);
+});
+window.addEventListener("load", function() {
+  updateScores();
 });
 
 function gameover() {
@@ -164,6 +177,7 @@ function gameover() {
   gameOver.style.display = "flex";
   audioHighWay.pause();
   audioGameOver.play();
+  gameIsOver = true;
 }
 function addPlayerName() {
   let yourName = document.getElementById("yourName").value;
@@ -174,12 +188,36 @@ function addPlayerName() {
   playerName.textContent = "" + yourName;
   startSide.style.display = "none";
   scoreSid.style.width = 300 + "px";
+  resetHighScore.style.display = "none";
+
 }
 
-let points = 0;
-function addPoints() {
-  points += 2;
-  playerScore.textContent = points;
+// create variables for current score and high score
+let currentScore = 0;
+let highScore = localStorage.getItem("highScore") || 0;
+
+// Function to update and display the scores
+function updateScores() {
+  playerScore.textContent = currentScore;
+  document.getElementById("currentScore").textContent = currentScore;
+  document.getElementById("highScore").textContent = highScore;
+}
+
+// Function to compare the current score with the high score
+function compareScores() {
+  if (currentScore > highScore) {
+    highScore = currentScore;
+    localStorage.setItem("highScore", highScore);
+    updateScores();
+  }
+}
+
+function increaseScore() {
+  if (!gameIsOver) {
+    currentScore += 5;
+    updateScores();
+    compareScores();
+  }
 }
 
 function moveRightPlayer() {
@@ -191,8 +229,7 @@ function moveRightPlayer() {
 
 // Call moveDiv function every 333 milliseconds
 function Setintervals() {
-  setInterval(addPoints, 3000);
-  setInterval(createNewCar, 900);
+  setInterval(increaseScore, 3000);
   setInterval(moveRightPlayer, 333);
   setInterval(triggerKeyDown, 1);
 }
@@ -203,3 +240,12 @@ function triggerKeyDown() {
   });
   document.dispatchEvent(event);
 }
+resetHighScore.addEventListener("click", () => {
+  localStorage.removeItem("highScore");
+  updateScores();
+  location.reload();
+  highScoreDiv.style.backgroundColor = "red";
+  setTimeout(() => {
+    highScoreDiv.style.backgroundColor = "";
+}, 2000);
+});

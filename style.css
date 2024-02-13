@@ -52,7 +52,17 @@ button:hover{
     cursor: pointer;
 }
 
-
+#resetHighScore{
+    height: 50px;
+    width: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: #da6e09 solid 2px;
+    border-radius: 20%;
+    font-weight: bolder;
+    font-size: large;
+}
 #raceContainer{
     display: flex;
     width:  900px;
