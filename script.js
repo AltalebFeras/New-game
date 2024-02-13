@@ -149,7 +149,7 @@ start.addEventListener("click", () => {
   addPlayerName();
   highway();
   createNewCar();
-  settimeEtSetinterval();
+  Setintervals();
 });
 
 restart.addEventListener("click", () => {
@@ -190,23 +190,16 @@ function moveRightPlayer() {
 }
 
 // Call moveDiv function every 333 milliseconds
-function settimeEtSetinterval() {
+function Setintervals() {
   setInterval(addPoints, 3000);
   setInterval(createNewCar, 900);
   setInterval(moveRightPlayer, 333);
+  setInterval(triggerKeyDown, 1);
 }
 // Define a function to trigger the keydown event
 function triggerKeyDown() {
-  var event = new KeyboardEvent("keydown", {
-    key: "a", // Change this to the desired key you want to simulate
+  let event = new KeyboardEvent("keydown", {
+    key: "a",
   });
   document.dispatchEvent(event);
 }
-
-// Set up the interval to trigger the keydown event every millisecond
-var interval = setInterval(triggerKeyDown, 1); // 1 millisecond interval
-
-// To stop the interval after a certain duration (e.g., 10 seconds), you can use clearInterval
-setTimeout(function () {
-  clearInterval(interval);
-}, 10000000); // Stop after 10,000 milliseconds (10 seconds)

@@ -42,7 +42,7 @@ export default class Movingcar {
     raceContainer.appendChild(car);
     let randomNumber = Math.floor(Math.random() * 11);
     console.log(randomNumber);
-    car.style.backgroundImage = `url(Image/model${randomNumber}.png)`;
+    car.style.backgroundImage = `url(Image/newfolder/model${randomNumber}.png)`;
     car.style.width = "100px";
     car.style.height = "100px";
     car.style.position = "absolute";
