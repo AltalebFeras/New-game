@@ -5,6 +5,9 @@ let gameOver = document.getElementById("gameOver");
 let start = document.getElementById("buttonStart"); // I get the start button
 let restart = document.getElementById("restartButton");
 let player = document.getElementById("player"); // I got the Player element
+let startSide = document.getElementById('startSide')
+let scoreSid = document.getElementById('scoreSid')
+let playerScore = document.getElementById("playerScore");
 console.log(player);
 let musicPlaying = false;
 let audiomusic = new Audio("audio/music.mp3");
@@ -39,7 +42,6 @@ function moveBackground() {
   requestAnimationFrame(moveBackground);
 }
 // call the function to be executed
-moveBackground();
 
 // to put an event on keyboard arrow to make the element move up/ down / left/ right
 
@@ -118,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
       case "p":
         hornPolice();
         break;
-      case "m":
+      case "m" || "M":
         music();
         break;
       default:
@@ -132,20 +134,22 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function createNewCar() {
-  let topValue = getRandomNumber(0, 3) * 100;
+  let topValue = getRandomNumber(0, 3) * 100; // I WILL MODIFY IT IN PLAN B TO (0)
   let speedValue = getRandomNumber(2, 4);
   cars.push(new Movingcar(topValue, speedValue));
 }
 
 start.addEventListener("click", () => {
+  moveBackground();
   addPoints();
   addPlayerName();
   highway();
   createNewCar();
   settimeEtSetinterval();
 });
+
 restart.addEventListener("click", () => {
-  gameover();
+  location.reload();
   createNewCar();
 
   setInterval(createNewCar, 1000);
@@ -158,13 +162,18 @@ function gameover() {
 function addPlayerName() {
   let yourName = document.getElementById("yourName").value;
   let playerName = document.getElementById("playerName");
+  if (yourName === "") {
+    yourName = "Player"; //  I set default name to "PLAYER" if the persone dose not write it.
+      }
   playerName.textContent = "" + yourName;
+  startSide.style.display = "none"
+  scoreSid.style.width = 300 +"px"
+
 }
 
 let points = 0;
-let playerScore = document.getElementById("playerScore");
 function addPoints() {
-  points += 5;
+  points += 2;
   playerScore.textContent = points;
 }
 
@@ -178,12 +187,7 @@ function moveRightPlayer() {
 
 // Call moveDiv function every 333 milliseconds
 function settimeEtSetinterval(){
-  
   setInterval(addPoints, 3000);
-  setInterval(createNewCar, 2000);
-  setTimeout(() => {
-    start.style.display = "none";
-    restart.style.display = "block";
-  }, 1111);
+  setInterval(createNewCar, 900);
   setInterval(moveRightPlayer, 333);
 } 

@@ -62,6 +62,6 @@ export default class Movingcar {
         left -= this.speed;
         car.style.left = left + "px";
       }
-    }, 10); // Adjust interval as needed
+    }, 10); // Adjust  the speed interval 
   }
 }

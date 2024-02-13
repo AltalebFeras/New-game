@@ -6,7 +6,6 @@ body{
     height: 825px;
     display: flex;
     align-items: center;
-    justify-content: center;
     background-image: url(Image/Pixel_art_grass_image.png);
     
 }
