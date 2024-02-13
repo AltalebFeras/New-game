@@ -115,6 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
       case "ArrowRight": // I divided the speed on two for left and right to avoid fast collision
         movePlayer(moveStep / 2, 0);
         break;
+      case "a":
+        movePlayer(moveStep / 11111, 0);
+        break;
       case "k":
         horn();
         break;
@@ -192,3 +195,18 @@ function settimeEtSetinterval() {
   setInterval(createNewCar, 900);
   setInterval(moveRightPlayer, 333);
 }
+// Define a function to trigger the keydown event
+function triggerKeyDown() {
+  var event = new KeyboardEvent("keydown", {
+    key: "a", // Change this to the desired key you want to simulate
+  });
+  document.dispatchEvent(event);
+}
+
+// Set up the interval to trigger the keydown event every millisecond
+var interval = setInterval(triggerKeyDown, 1); // 1 millisecond interval
+
+// To stop the interval after a certain duration (e.g., 10 seconds), you can use clearInterval
+setTimeout(function () {
+  clearInterval(interval);
+}, 10000000); // Stop after 10,000 milliseconds (10 seconds)
