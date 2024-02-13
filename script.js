@@ -9,6 +9,7 @@ let startSide = document.getElementById('startSide')
 let scoreSid = document.getElementById('scoreSid')
 let playerScore = document.getElementById("playerScore");
 console.log(player);
+
 let musicPlaying = false;
 let audiomusic = new Audio("audio/music.mp3");
 
@@ -21,9 +22,10 @@ function music() {
     musicPlaying = true;
   }
 }
+let audioHighWay = new Audio("audio/highway.mp3");
 function highway() {
-  let audio = new Audio("audio/highway.mp3");
-  audio.play();
+  
+  audioHighWay.play();
 }
 function horn() {
   let audio = new Audio("audio/Klaxon.mp3");
@@ -158,6 +160,8 @@ restart.addEventListener("click", () => {
 function gameover() {
   game.style.display = "none";
   gameOver.style.display = "flex";
+  audioHighWay.pause();
+
 }
 function addPlayerName() {
   let yourName = document.getElementById("yourName").value;
