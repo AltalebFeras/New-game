@@ -10,7 +10,7 @@ Contrôler la Voiture du Joueur : Utilisez les touches fléchées de votre clavi
 L'objectif est d'esquiver les voitures entrantes et de rester en vie le plus longtemps possible..
 
 Effets Sonores : Appuyez sur "K" pour klaxonner votre voiture, "P" pour activer un klaxon de police, et "M" pour activer/désactiver la musique de fond.
-Il y a des sons lorsque le score atteint 30, 45 et 60, et il y a des sons différents lorsque le GAMEOVER.
+Il y a des sons lorsque le score atteint 30, 45 et 75, et il y a des sons différents lorsque le GAMEOVER.
 
 Système de Score : Vous gagnez des points au fil du temps pendant que vous jouez. Les points augmentent automatiquement toutes 3 secondes.
 

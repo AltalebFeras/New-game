@@ -237,7 +237,7 @@ function increaseScore() {
     if (currentScore === 45) {
       playSound1();
     }
-    if (currentScore === 60 ) {
+    if (currentScore === 70 ) {
       playSound2();
     }
     

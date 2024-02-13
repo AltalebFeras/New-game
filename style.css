@@ -10,6 +10,7 @@ body{
     
 }
 #gameOver{
+    width: 1200px;
     display: none;
     align-items: center;
     flex-direction: column;
