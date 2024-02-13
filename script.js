@@ -14,7 +14,8 @@ let highScoreDiv = document.querySelector('#highScoreDiv')
 let gameIsOver = false;
 let musicPlaying = false;
 let audiomusic = new Audio("audio/music.mp3");
-let audioGameOver = new Audio("audio/GameOver.mp3");
+const gameOverAudioRandom = Math.floor(Math.random() * 3)
+let audioGameOver = new Audio(`audio/GameOver${gameOverAudioRandom}.mp3`);
 function music() {
   if (musicPlaying) {
     audiomusic.pause();
@@ -36,6 +37,19 @@ function hornPolice() {
   let audio = new Audio("audio/police.mp3");
   audio.play();
 }
+function playSound0() {
+  let audio = new Audio('audio/level30.mp3');
+  audio.play();
+}
+function playSound1() {
+  let audio = new Audio('audio/level45.mp3');
+  audio.play();
+}
+function playSound2() {
+  let audio = new Audio('audio/level60.mp3');
+  audio.play();
+}
+
 //to make a background rolling
 let currentPosition = 0;
 const speed = 2; // adjust the speed as needed
@@ -217,6 +231,16 @@ function increaseScore() {
     currentScore += 5;
     updateScores();
     compareScores();
+    if (currentScore === 30) {
+      playSound0();
+    }
+    if (currentScore === 45) {
+      playSound1();
+    }
+    if (currentScore === 60 ) {
+      playSound2();
+    }
+    
   }
 }
 
